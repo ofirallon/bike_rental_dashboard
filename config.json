@@ -1,0 +1,73 @@
+{
+    "periods": {
+        "training": {
+            "start": "2011-01-01",
+            "end": "2012-04-30"
+        },
+        "validation": {
+            "start": "2012-05-01",
+            "end": "2012-07-31"
+        },
+        "test": {
+            "start": "2012-08-01",
+            "end": "2012-12-31"
+        }
+    },
+    "preprocessing": {
+        "medians": {
+            "prev_hour_cnt": 117.0,
+            "prev_day_cnt": 117.0,
+            "prev_week_cnt": 116.0,
+            "prev_24h_mean": 171.04166666666666,
+            "prev_hour_temp": 0.44,
+            "prev_hour_hum": 0.62,
+            "prev_hour_wind": 0.194
+        },
+        "encoded_columns": [
+            "hour_encoded_0",
+            "hour_encoded_1",
+            "hour_encoded_10",
+            "hour_encoded_11",
+            "hour_encoded_12",
+            "hour_encoded_13",
+            "hour_encoded_14",
+            "hour_encoded_15",
+            "hour_encoded_16",
+            "hour_encoded_17",
+            "hour_encoded_18",
+            "hour_encoded_19",
+            "hour_encoded_2",
+            "hour_encoded_20",
+            "hour_encoded_21",
+            "hour_encoded_22",
+            "hour_encoded_23",
+            "hour_encoded_3",
+            "hour_encoded_4",
+            "hour_encoded_5",
+            "hour_encoded_6",
+            "hour_encoded_7",
+            "hour_encoded_8",
+            "hour_encoded_9",
+            "weekday_encoded_0",
+            "weekday_encoded_1",
+            "weekday_encoded_2",
+            "weekday_encoded_3",
+            "weekday_encoded_4",
+            "weekday_encoded_5",
+            "weekday_encoded_6",
+            "month_encoded_1",
+            "month_encoded_10",
+            "month_encoded_11",
+            "month_encoded_12",
+            "month_encoded_2",
+            "month_encoded_3",
+            "month_encoded_4",
+            "month_encoded_5",
+            "month_encoded_6",
+            "month_encoded_7",
+            "month_encoded_8",
+            "month_encoded_9"
+        ]
+    },
+    "default_model": "Ridge"
+}
