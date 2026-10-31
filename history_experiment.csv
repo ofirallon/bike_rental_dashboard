@@ -1,0 +1,3 @@
+input_set,selected_penalty,validation_hours,validation_MAE,inputs
+Calendar only,0.1,2208,115.17960535314975,"hour, weekday, month, holiday, workingday"
+Full required inputs,0.1,2208,50.229091747128045,calendar + count history + previous weather + seven missing flags

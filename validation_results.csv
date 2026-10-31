@@ -1,0 +1,28 @@
+experiment,Model,Parameters,MAE,Evaluated_Hours,fit_seconds,selected,nonzero_coefficients
+principal,Seasonal Baseline,{},123.8847056235566,2208,0.010160400008317083,True,
+principal,Ridge,"{""alpha"": 0.1}",50.229091747128045,2208,0.04595459999109153,True,59.0
+principal,Ridge,"{""alpha"": 1.0}",50.23629704101895,2208,0.009701799994218163,False,59.0
+principal,Ridge,"{""alpha"": 10.0}",50.30869602037278,2208,0.00713319999340456,False,59.0
+principal,Ridge,"{""alpha"": 100.0}",51.05125260694718,2208,0.0070180000038817525,False,59.0
+principal,Lasso,"{""alpha"": 0.001}",50.23130468232332,2208,0.09094359999289736,True,54.0
+principal,Lasso,"{""alpha"": 0.01}",50.259575779727044,2208,0.028287499997531995,False,53.0
+principal,Lasso,"{""alpha"": 0.1}",50.72793498947057,2208,0.019369000001461245,False,42.0
+principal,Lasso,"{""alpha"": 1.0}",54.62170739455138,2208,0.013434099993901327,False,14.0
+principal,Lasso,"{""alpha"": 10.0}",57.34228886881961,2208,0.00917400000616908,False,3.0
+principal,Poisson,"{""alpha"": 0.001}",83.98156046931443,2208,0.357345800002804,True,59.0
+principal,Poisson,"{""alpha"": 0.01}",84.16852477510459,2208,0.3177311000035843,False,59.0
+principal,Poisson,"{""alpha"": 0.1}",85.97830687834951,2208,0.19743120000930503,False,59.0
+principal,Poisson,"{""alpha"": 1.0}",97.28995842889904,2208,0.09591970000474248,False,59.0
+principal,Bayesian,"{""alpha_prior"": 0.001, ""noise_multiplier"": 0.5, ""sigma2_noise"": 1179.9805223510332}",50.23773019254384,2208,0.0047885999956633896,True,
+principal,Bayesian,"{""alpha_prior"": 0.001, ""noise_multiplier"": 1.0, ""sigma2_noise"": 2359.9610447020664}",50.247177341587076,2208,0.004778800008352846,False,
+principal,Bayesian,"{""alpha_prior"": 0.001, ""noise_multiplier"": 2.0, ""sigma2_noise"": 4719.922089404133}",50.26606177598125,2208,0.004428999993251637,False,
+principal,Bayesian,"{""alpha_prior"": 0.01, ""noise_multiplier"": 0.5, ""sigma2_noise"": 1179.9805223510332}",50.3221472889561,2208,0.005284800005028956,False,
+principal,Bayesian,"{""alpha_prior"": 0.01, ""noise_multiplier"": 1.0, ""sigma2_noise"": 2359.9610447020664}",50.41775092297283,2208,0.0035703000030480325,False,
+principal,Bayesian,"{""alpha_prior"": 0.01, ""noise_multiplier"": 2.0, ""sigma2_noise"": 4719.922089404133}",50.60917600271422,2208,0.0034922000049846247,False,
+principal,Bayesian,"{""alpha_prior"": 0.1, ""noise_multiplier"": 0.5, ""sigma2_noise"": 1179.9805223510332}",51.15793698997991,2208,0.005925399993429892,False,
+principal,Bayesian,"{""alpha_prior"": 0.1, ""noise_multiplier"": 1.0, ""sigma2_noise"": 2359.9610447020664}",51.91885335981308,2208,0.0062793999968562275,False,
+principal,Bayesian,"{""alpha_prior"": 0.1, ""noise_multiplier"": 2.0, ""sigma2_noise"": 4719.922089404133}",52.992438143816564,2208,0.0027876999956788495,False,
+calendar_only,Ridge,"{""alpha"": 0.1}",115.17960535314975,2208,0.0061784000135958195,True,45.0
+calendar_only,Ridge,"{""alpha"": 1.0}",115.28534884946384,2208,0.00971479999134317,False,45.0
+calendar_only,Ridge,"{""alpha"": 10.0}",116.32587296312053,2208,0.008546999990358017,False,45.0
+calendar_only,Ridge,"{""alpha"": 100.0}",125.50787474234792,2208,0.010367900002165698,False,45.0
