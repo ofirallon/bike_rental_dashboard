@@ -1,51 +1,121 @@
-# AI development records
+# AI-assisted development log
 
-These six records describe assistance actually performed in this conversation. Several subtasks share the user's same implementation request; they are not presented as six separate user prompts or as a reconstruction of the student's earlier development history. Verification references are executable project checks and recorded outputs. The student should review these changes and add their own understanding/decisions before submission.
+These records quote actual messages from the project conversation. Prompts marked as excerpts reproduce only the relevant part. Two records follow the same visual-change request through implementation and checking; they are not presented as invented separate chats. There are two design/planning, two implementation and two checking/debugging records. Records 5 and 6 describe corrections to earlier AI proposals.
 
-## 1. Design — assess the actual requirements
+## 1. Design/planning — requirements and prediction architecture
 
-- Task/prompt: user asked in Hebrew to act as a strict assessor and identify missing criteria, excluding the technical report for now.
-- Response excerpt: the assistant identified that the current interface reads predictions from CSV rather than applying a saved fitted model, and that the Lasso/history/distribution experiments were missing.
-- Decision: use the local 25-page assignment as the requirements source; separate software requirements from the deferred report.
-- References: `forecasting.py`, `train_evaluate.py`, `screens/`, `README.md`.
-- Verification: `checks/test_app.py` exercises the forecast/reveal/reset workflow; `checks/test_replay.py` checks saved-model replay and choice preservation.
+**Task:** Identify the components required for an auditable historical replay.
 
-## 2. Design — split screens while sharing prediction logic
+**Actual prompt:**
 
-- Task/prompt: user asked whether to recommend a separate Python file for each screen, then requested step-by-step repairs.
-- Response excerpt: keep `app.py` for loading/navigation and use `render()` per screen, with input construction and prediction shared between training/evaluation and the dashboard.
-- Decision: four `screens/` modules use `forecasting.py`, `features.py` and `models.py`; there is no second model implementation inside a screen.
-- References: `app.py`, `screens/forecast.py`, `screens/inspect.py`.
-- Verification: all four screens and largest-error inspection are exercised by `checks/test_app.py`; replay values are compared with saved outputs.
+> אתה בודק קשוח של המטלה
+> תסתכל על הקריטריונים (ללא מסמך כרגע) ותגיד מה חסר ומה לא חסר
+> מה לשפר ומה לא
+> תעשה רשימה
 
-## 3. Implementation — numerical preprocessing and Poisson repair
+**Response excerpt:**
 
-- Task/prompt: “תתקן את זה תעבור שלב שלב” applied to the supplied repair list.
-- Response excerpt: add Training-only scaling and refuse a failed Poisson fit rather than hiding warnings.
-- Decision: preserve raw history/source values for display; save Training medians, means, population scales, categories and column order. Use the same transformation for all four regressions.
-- References: `features.Preprocessor`, `models.fit_poisson`, `config.json`.
-- Verification: the original diagnostic found one Poisson iteration, zero nonzero coefficients and Validation MAE 189.2985; a scaled diagnostic achieved 83.9642. The repaired saved model has Validation MAE about 83.9816 and varying predictions. `test_frozen_imputation_scaling_and_unknown_category` and `test_saved_metrics_and_validation_choice` check the final behavior.
+> מצאתי בתיקייה גם את מסמך המטלה, כך שאפשר לבדוק מול הדרישות עצמן.
 
-## 4. Implementation — experiments and uncertainty outputs
+**Decision:** Ground the design in the assignment. Separate saved-model prediction from outcome reveal, chronological model selection from Test assessment, and software evidence from the written report.
 
-- Task/prompt: same repair request, including missing Lasso/Ridge/distribution experiments and Bayesian variance display.
-- Response excerpt: training freezes settings before Test, saves fitted objects, and only then evaluates Test.
-- Decision: independently tune calendar-only Ridge; retain Lasso paths/counts; freeze Training-derived count bins. Estimate the Bayesian noise scale using Training residuals and select candidate configurations using Validation MAE, without Test calibration.
-- References: `train_evaluate.run_pipeline`, `evaluation.py`, `screens/inspect.py`, `screens/overview.py`.
-- Verification: `test_distribution_bins_cover_zero_maximum_and_overflow`, the independent Bayesian small example, and `test_changing_test_records_cannot_reselect_or_refit` verify these boundaries. `interval_metrics.csv` records measured coverage rather than claiming nominal coverage was achieved.
+**Code/change references:** forecasting.py: forecast_hour, reveal_outcome, verify_saved; train_evaluate.py; features.py.
 
-## 5. Checking/debugging — correct the narrow initial verification
+**Executed verification/outcome:** The recorded 17-check suite covers prediction boundaries, frozen selection and saved-model replay. checks/test_replay.py compares all five methods against saved outputs at first/last and worked Test hours. Outcomes are recorded in CHECK_RESULTS.md.
 
-- Task/prompt: the user's strict assessment request followed the earlier server setup and screen-loading checks.
-- Response excerpt: a successful application launch alone does not establish compliance or correct uncertainty.
-- Corrected proposal/decision: the earlier successful screen-loading check was insufficient as acceptance evidence. Replace that narrow acceptance standard with independent arithmetic fixtures, historical-availability mutation checks, save/reload checks, actual model application, and browser/export checks.
-- References: `checks/test_features.py`, `checks/test_numerics.py`, `checks/test_replay.py`, `CHECK_RESULTS.md`. The optional browser automation helper used during development was removed during submission cleanup.
-- Verification: the exact 24-hour mean is 12.5; missing timestamps stay missing; observed zero stays zero; changing target/future count and weather does not alter the current forecast; Bayesian example gives mean 4 and total variance 3. The test suite records these checks explicitly.
+## 2. Design/planning — interface hierarchy
 
-## 6. Checking/debugging — correct the test temporary-directory choice
+**Task:** Produce a prioritized UI plan that preserves the analyst's forecast workflow.
 
-- Task/prompt: same step-by-step repair request, specifically executable checks and reproducibility.
-- Response excerpt: run pytest with a fresh temporary directory inside the project after the system pytest directory proved inaccessible.
-- Corrected proposal/decision: the first test command assumed the default Windows pytest temp location was usable. It produced 11 passes and 5 setup errors caused by `PermissionError`, not model failures. Correct the invocation to use a unique project-local `--basetemp`; retain the normal portable invocation in the README and document the fallback.
-- References: `README.md`, `checks/conftest.py`, `CHECK_RESULTS.md`.
-- Verification: the corrected invocation completed the initial 16 checks with no failures or warnings; the final expanded run is recorded in `CHECK_RESULTS.md`. Optional machine-readable test outputs were removed during submission cleanup.
+**Actual prompt:**
+
+> כעובד UX UI
+> אני רוצה שתעשה לוג של כל הדברים בUX UI שלא טובים
+> אני רוצה רשימה שאשלח למתכנת שלי
+
+**Response excerpt:**
+
+> אעבור על המסכים והפקדים ואכין רשימת תיקוני UX/UI שאפשר להעביר למתכנת, עם הבעיה, התיקון המוצע ורמת העדיפות.
+
+**Decision:** Separate visual corrections from prediction behaviour. Prioritize neutral outcomes, readable input sources, explicit period scopes, measured coverage and mobile layouts. Keep Forecast-before-Reveal and the Validation-selected default.
+
+**Code/change references:** screens/presentation.py; screens/common.py; screens/compare.py; screens/inspect.py.
+
+**Executed verification/outcome:** Browser checks exercised all four screens at 1440 × 1000 and 390 × 844. Stacked input rows and mobile navigation worked; no page-level horizontal overflow at 390px or JavaScript page errors were recorded. The summary is retained in CHECK_RESULTS.md.
+
+## 3. Implementation — requested visual corrections
+
+**Task:** Implement the selected 13 visual changes and three additional charts.
+
+**Actual prompt excerpt:**
+
+> אתה מומחה UX UI
+>
+> תתקן את הדברים הוויזואלים האלה
+
+**Response excerpt:**
+
+> הוספתי שפה חזותית משותפת: צבעים רגועים, כותרות קומפקטיות, כרטיסי מדדים ניטרליים וטבלאות עם פירוט קריא במובייל.
+
+**Decision:** Share presentation helpers instead of duplicating styles. Use neutral metric cards, semantic input tables and interval/model-comparison/coverage charts. Format display numbers while retaining full saved precision and unavailable interval fields.
+
+**Code/change references:** .streamlit/config.toml; screens/presentation.py; screens/common.py: interval_chart and show_forecast; screens/compare.py; screens/inspect.py.
+
+**Executed verification/outcome:** The full suite passed 17/17 after the visual update. The revealed actual metric matched saved outcomes. Downloaded score and forecast CSVs matched saved source rows; changing the model/hour cleared the previous forecast and outcome.
+
+## 4. Implementation — technical report from measured evidence
+
+**Task:** Create the report without modifying fitted models or the app.
+
+**Actual prompt:**
+
+> create me now the last thing that is needed for this excercise
+> the PDF
+> and tell me if there is something more that needs to be done
+> (dont do anything else)
+
+**Response excerpt:**
+
+> I’ll create `report.pdf` from the current code, saved results, and assignment requirements. I’ll also list any remaining submission tasks, without changing the app or doing any other work.
+
+**Decision:** Recompute the worked replay and Bayesian calculation from saved objects. Use three actual largest-error cases, distinguish evidence from hypotheses, and report poor interval coverage.
+
+**Code/change references:** report.pdf; report_source.html; predictions.csv; interval_metrics.csv; artifacts/models.joblib; forecasting.py.
+
+**Executed verification/outcome:** At 2012-08-01 08:00, Ridge predicts 664.374197 against actual 681. Bayesian mean is 664.319021 and total predictive variance is 1,187.950644. Report values were checked against saved outputs; PDF checks covered page placement, text extraction and numerical values.
+
+## 5. Checking/debugging — reject the first chart/header layout
+
+**Task:** Check the visual implementation from record 3 in a real browser.
+
+**Actual prompt excerpt (the same request as record 3):**
+
+> תתקן את הדברים הוויזואלים האלה
+
+**Response excerpt identifying the correction:**
+
+> בצילומים זיהיתי שני פרטים שדורשים תיקון נוסף: גרף רווחי החיזוי דחוס מדי, והכותרת העליונה נחתכת מעט.
+
+**Rejected/corrected proposal:** The first AI implementation used a 130px interval plot and insufficient top padding. Screenshots showed overlapping interval rows and a clipped header. That proposal was rejected even though numerical/UI checks passed.
+
+**Decision and code/change references:** Increase plot/container heights to 220/240px in screens/common.py and clear the framework header using top padding in screens/presentation.py. Do not change interval endpoints to solve a layout problem.
+
+**Executed verification/outcome:** Repeated Chromium checks showed separated 80%/95% interval rows, a readable header and stacked mobile inputs. The final recorded full suite passed 17 tests in 33.72 seconds. Temporary screenshots were removed after visual review.
+
+## 6. Checking/debugging — correct manual startup guidance
+
+**Task:** Diagnose the recurring white page and provide reliable startup.
+
+**Actual prompt:**
+
+> fix white screen
+
+**Response excerpt:**
+
+> The server is stopped again; nothing is responding on port 8501. I’ll verify the app in Chrome and add a simple launcher so you can start it reliably from the project folder.
+
+**Rejected/corrected proposal:** Earlier AI assistance supplied a valid manual Streamlit command, but instructions alone did not ensure that the server stayed running or started from the correct directory. This workflow was corrected with a directory-aware launcher. The original command itself was not syntactically or numerically wrong.
+
+**Decision and code/change references:** start.cmd selects its own folder, uses the local environment, starts port 8501, opens the browser and keeps startup failures visible. README.md and howtorun.txt explain keeping the window open. Model code was not changed to disguise a stopped server.
+
+**Executed verification/outcome:** Initially the health URL refused the connection and no server listened on port 8501. After startup, health returned 200; all four screens, a loaded-model forecast and page reload worked in Chrome with no JavaScript errors or failed local requests. The launcher also worked when invoked from the parent folder.

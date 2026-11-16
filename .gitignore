@@ -5,3 +5,4 @@ __pycache__/
 hour.csv
 *.log
 artifacts/check-temp-*/
+FoDS_Final_Project_B_Classical*.pdf

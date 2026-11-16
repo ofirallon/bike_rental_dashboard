@@ -3,7 +3,7 @@ Keep the launcher window open. Press Ctrl+C to stop the server.
 
 Alternatively, run these commands in PowerShell:
 
-cd "C:\Users\itama\Desktop\Project-BikeRental\bike_rental_dashboard"
+Open PowerShell in the bike_rental_dashboard project folder, then run:
 .\start.cmd
 
 App address: http://127.0.0.1:8501

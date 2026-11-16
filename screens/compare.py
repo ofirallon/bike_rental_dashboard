@@ -68,4 +68,5 @@ def render(ctx):
         strokeDash=alt.StrokeDash('series:N',title=None),detail='segment:N',
         tooltip=[alt.Tooltip('timestamp:T',title='Hour'),'series:N',alt.Tooltip('rentals:Q',format=',.2f')])
     st.altair_chart(chart_style(lines),width='stretch')
-    download(rows,'Download displayed forecasts','displayed_forecasts.csv')
+    export_name=f'{name.lower().replace(" ","_")}_forecasts_{start:%Y-%m-%d}_{end:%Y-%m-%d}.csv'
+    download(rows,'Download displayed forecasts',export_name)
