@@ -15,7 +15,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m streamlit run app.py --server.address 127.0.0.1
 ```
 
-Open http://localhost:8501. Stop a foreground server with **Ctrl+C** in its terminal. The virtual environment need not be activated. On macOS/Linux, use `.venv/bin/python` in place of `.\.venv\Scripts\python.exe`; those platforms were not verified in this session.
+Open http://127.0.0.1:8501. After the initial setup, Windows users can double-click [start.cmd](start.cmd), or run `.\start.cmd` in PowerShell. The launcher selects the project directory, starts the local Python environment and opens the browser. Keep its terminal window open while using the app; **Ctrl+C** or closing that window stops the server. If startup fails, the window stays open so the error can be read. The virtual environment need not be activated. On macOS/Linux, use `.venv/bin/python` in place of `.\.venv\Scripts\python.exe`; those platforms were not verified in this session.
 
 The downloader refuses to overwrite an existing `hour.csv`; skip that command when the original file is already present. Alternatively download the [UCI Bike Sharing dataset](https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset), extract `hour.csv`, and place it beside `app.py`. Attribution: UCI Machine Learning Repository, Bike Sharing dataset, original 2011–2012 Capital Bikeshare observations (17,379 hourly rows). The source file's original values and normalized weather units are retained. The source CSV is excluded from Git and is obtained using these instructions.
 

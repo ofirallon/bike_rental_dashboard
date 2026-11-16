@@ -1,2 +1,10 @@
+Double-click start.cmd to start the app and open the browser.
+Keep the launcher window open. Press Ctrl+C to stop the server.
+
+Alternatively, run these commands in PowerShell:
+
 cd "C:\Users\itama\Desktop\Project-BikeRental\bike_rental_dashboard"
-.\.venv\Scripts\python.exe -m streamlit run app.py --server.address 127.0.0.1 --server.port 8501
+.\start.cmd
+
+App address: http://127.0.0.1:8501
+If an old tab is blank after restarting the server, press Ctrl+Shift+R.
